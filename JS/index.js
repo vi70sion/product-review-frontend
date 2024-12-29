@@ -24,10 +24,6 @@ document.getElementById('login-button').addEventListener('click', async function
 
             document.cookie = `LoginCookies=${token}; path=/; max-age=${1 * 60 * 60 * 24}`; // 1 days
 
-            // Save the token and userEmail in localStorage
-            localStorage.setItem('LoginCookies', token); 
-            localStorage.setItem('userEmail', username); 
-
             //const userId = getUserIdFromToken(token);
             //console.log("User ID:", userId);
 
