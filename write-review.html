@@ -1,0 +1,49 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Write a Review</title>
+    <link rel="stylesheet" href="./CSS/write-review.css">
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <img src="./IMG/logo.png" alt="Product Review Logo">
+            P r o d u c t R e v i e w
+        </div>
+    </div>
+    <div class="form-container">
+        <h1>Write a Review</h1>
+        <form id="review-form">
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select id="category" name="category" required>
+                    <option value="">Select a category</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="productName">Product Name</label>
+                <input type="text" id="productName" name="productName" required>
+            </div>
+            <div class="form-group">
+                <label for="reviewText">Review</label>
+                <textarea id="reviewText" name="reviewText" rows="5" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="rating">Rating (1-5)</label>
+                <input type="number" id="rating" name="rating" min="1" max="5" required>
+            </div>
+            <div class="form-group">
+                <label for="photo">Photo</label>
+                <input type="file" id="photo" name="photo" accept="image/*">
+            </div>
+            <div class="form-group">
+                <button type="submit">Submit Review</button>
+                <br>
+                <button type="cancel" onclick="location.href='product-review.html';">Cancel</button>
+            </div>
+        </form>
+    </div>
+    <script src="./JS/write-review.js"></script>
+</body>
+</html>
