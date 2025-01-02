@@ -75,6 +75,37 @@ fetch('http://localhost:8080/api/categories/all', {
 })
 .catch(error => console.error('Error fetching categories:', error));
 
+const socket = new SockJS('http://localhost:8080/websocket');
+const stompClient = Stomp.over(socket);
+let firstSubscribe = true;
+
+stompClient.connect({ Authorization: `Bearer ${token}` }, function (frame) {
+    console.log('Connected: ' + frame);
+
+    stompClient.subscribe('/topic/welcome', function (welcomeMessage) {
+        const message = welcomeMessage.body;
+        if (firstSubscribe) {
+            showMessage(message.replace('[Welcome]', '').trim());
+            firstSubscribe = false;
+        }
+    });
+
+    stompClient.subscribe('/topic/messages', function (messageOutput) {
+        const message = messageOutput.body;
+        if (!message.startsWith('[Welcome]')) {
+            showMessage(message);
+        } 
+    });
+});
+
+function showMessage(message) {
+    const messagesContainer = document.getElementById('messages-container');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'message';
+    messageDiv.textContent = message;
+    messagesContainer.appendChild(messageDiv);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
 
 function getCookie(name) {
     const value = `; ${document.cookie}`;

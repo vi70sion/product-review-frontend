@@ -24,10 +24,6 @@ document.getElementById('login-button').addEventListener('click', async function
 
             document.cookie = `LoginCookies=${token}; path=/; max-age=${1 * 60 * 60 * 24}`; // 1 days
 
-            //const userId = getUserIdFromToken(token);
-            //console.log("User ID:", userId);
-
-            //window.location.href = 'product-review.html';
             window.location.assign('product-review.html');
 
         } else {

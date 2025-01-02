@@ -34,7 +34,27 @@ document.getElementById('review-form').addEventListener('submit', event => {
     event.preventDefault();
 
     const formData = new FormData();
-    formData.append('image', document.getElementById('photo').files[0]);
+    const fileInput = document.getElementById('photo');
+    const selectedFile = fileInput.files[0];
+
+    if (selectedFile) {
+        formData.append('image', selectedFile);
+    } else {
+        // If no file is selected, add a default image
+        fetch('./IMG/logo-black.png')
+            .then(response => response.blob())
+            .then(blob => {
+                formData.append('image', blob, './IMG/logo-black.png');
+                submitReview(formData);
+            })
+            .catch(error => console.error('Error loading default image:', error));
+        return; // async insertion
+    }
+    // image file selected
+    submitReview(formData);
+});
+
+function submitReview(formData) {
     formData.append('category', document.getElementById('category').value);
 
     const review = {
@@ -61,7 +81,7 @@ document.getElementById('review-form').addEventListener('submit', event => {
         }
     })
     .catch(error => console.error('Error submitting review:', error));
-});
+}
 
 function getCookie(name) {
     const value = `; ${document.cookie}`;
