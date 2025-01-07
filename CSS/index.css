@@ -5,7 +5,7 @@ body {
     padding: 0;
 }
 
-.login-container {
+.login-container, .register-container {
     width: 300px;
     margin: 100px auto;
     padding: 20px;
@@ -20,13 +20,13 @@ body {
     color: #333;
 }
 
-.login-container label {
+.login-container label, .register-container label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
 }
 
-.login-container input {
+.login-container input, .register-container input {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
@@ -35,8 +35,7 @@ body {
     box-sizing: border-box;
 }
 
-/* Reuse "Pirkti bilietą" button style */
-#login-button {
+#login-button, #create-button, #cancel-button {
     width: 100%;
     padding: 10px;
     background-color: #28a745;
@@ -46,8 +45,20 @@ body {
     cursor: pointer;
     font-size: 1em;
     transition: background-color 0.3s ease;
+    margin-bottom: 10px;
 }
 
-#login-button:hover {
+#login-button:hover, #create-button:hover, #cancel-button:hover {
     background-color: #1a5327;
+}
+
+.create-account {
+    margin-top: 10px;
+    color: #007bff;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.create-account:hover {
+    color: #0056b3;
 }

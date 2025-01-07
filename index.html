@@ -17,6 +17,28 @@
         <input type="password" id="password" name="password" placeholder="Password">
 
         <button id="login-button">Sign in</button>
+        <p class="create-account" id="create-account-link">Create an account</p>
+    </div>
+
+    <div class="register-container" id="register-container" style="display: none;">
+        <h2>Create an Account</h2>
+
+        <label for="fullname">Full Name:</label>
+        <input type="text" id="fullname" name="fullname" placeholder="Full Name" required>
+
+        <label for="register-email">Email:</label>
+        <input type="email" id="register-email" name="register-email" placeholder="Email" required>
+
+        <label for="register-password">Password:</label>
+        <input type="password" id="register-password" name="register-password" placeholder="Password" required>
+        
+        <label for="accept-news">
+            <input type="checkbox" id="accept-news" name="accept-news"> I accept to receive newsletters
+        </label>
+
+        <button id="create-button">Create Account</button>
+        
+        <button id="cancel-button">Cancel</button>
     </div>
 
     <script src="./JS/index.js"></script>
