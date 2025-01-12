@@ -75,6 +75,59 @@ fetch('http://localhost:8080/api/categories/all', {
 })
 .catch(error => console.error('Error fetching categories:', error));
 
+document.getElementById('search-button').addEventListener('click', () => {
+    const searchtext = document.getElementById('search-input').value;
+
+    if (searchtext.trim() !== '') {
+        fetch(`http://localhost:8080/api/review/search?searchtext=${encodeURIComponent(searchtext)}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(reviews => {
+            const reviewsContainer = document.getElementById('reviews-container');
+            reviewsContainer.innerHTML = ''; 
+            reviews.forEach(review => {
+                fetch(`http://localhost:8080/api/user/name?id=${review.userId}`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                .then(userResponse => userResponse.text())
+                .then(userName => {
+                    const reviewDiv = document.createElement('div');
+                    reviewDiv.className = 'review';
+
+                    const base64Image = review.photo;
+                    const photoUrl = base64Image ? `data:image/jpg;base64,${base64Image}` : 'placeholder.png';
+
+                    reviewDiv.innerHTML = `
+                        <img src="${photoUrl}" alt="Product Photo">
+                        <div class="review-content">
+                            <h3>${review.productName} (rating ${review.rating}/5)</h3>
+                            <p>${review.reviewText}</p>
+                            <p><strong>Review by:</strong> ${userName} <strong>, Created At:</strong> ${new Date(review.createdAt).toLocaleString()}</p>
+                        </div>
+                    `;
+                    reviewsContainer.appendChild(reviewDiv);
+                })
+                .catch(error => console.error('Error fetching user name:', error));
+            });
+        })
+        .catch(error => console.error('Error fetching reviews:', error));
+    } else {
+        alert('Please enter a search term.');
+    }
+});
+
 const socket = new SockJS('http://localhost:8080/websocket');
 const stompClient = Stomp.over(socket);
 let firstSubscribe = true;
